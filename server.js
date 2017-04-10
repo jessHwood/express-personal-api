@@ -38,7 +38,7 @@ app.get('/', function homepage(req, res) {
 app.get('/api', function api_index(req, res) {
   // TODO: Document all your api endpoints below
   res.json({
-    woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
+    name: "true", // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
     documentation_url: "https://github.com/example-username/express_self_api/README.md", // CHANGE ME
     base_url: "http://YOUR-APP-NAME.herokuapp.com", // CHANGE ME
@@ -47,7 +47,23 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
       {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
     ]
-  })
+  });
+});
+
+app.get('/api/profile', function api_index(req, res) {
+  // TODO: Document all your api endpoints below
+  res.json({
+    name: "Jess Wood", 
+    message: "Welcome to my personal api! Here's what you need to know!",
+    github_link: "https://github.com/jessHwood", 
+    github_profile_image: "https://github.com/settings/profile",
+    base_url: "https://warm-castle-32625.herokuapp.com/", 
+    current_city: "Sweet Ridge",
+    pets: [
+      {name: "Froh", type: "AwesomeCat", breed: "Orange Tabby"},
+      {name: "Xela", type: "Doggie", breed: "Border Collie Chocolate Lab Mutt"}
+    ]
+  });
 });
 
 /**********
