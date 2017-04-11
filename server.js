@@ -65,6 +65,13 @@ app.get('/api/profile', function api_index(req, res) {
   });
 });
 
+app.get('/api/vacations', function (req, res){
+  db.Vacation.find(function(err, vacations){
+    if(err) {return console.log("index error:" + err); }
+    res.json(vacations);
+  });
+});
+
 /**********
  * SERVER *
  **********/
