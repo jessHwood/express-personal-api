@@ -80,10 +80,19 @@ app.get('/api/vacations/:id', function (req, res) {
 });
 
 app.post('/api/vacations', function(req, res){
-    console.log('vacations create', req.body);
-    var newVacation = req.body;
-    vacations.push(newVacation);
-    res.json(newVacation);
+  var newVacation = new db.Vacation ({
+    country: req.body.country,
+    date: req.body.date,
+    image: req.body.image,
+  });
+
+  newVacation.save(function (err,vacation){
+    if(err) {
+      return console.log("save error" + err);
+    }
+      console.log("saved" + vacation.country);
+      res.json(vacation);
+  });
 });
 /**********
  * SERVER *
