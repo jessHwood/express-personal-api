@@ -47,7 +47,9 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "Data about me"}, 
       {method: "GET", path: "/api/vacations", description: "Show some of my vacations"}, 
       {method: "GET", path: "/api/vacations/:id", description: "Show a vacation by Id"},
-      {method: "POST", path: "/api/vacations/", description: "Add a new vacation"}
+      {method: "POST", path: "/api/vacations/", description: "Add a new vacation"}, 
+      {method: "PUT", path: "/api/vacations/:id", description: "Edit a vacation"}, 
+      {method: "DELETE", path: "/api/vacations/:id", description: "Delete a vacation"}
     ]
   });
 });
@@ -98,11 +100,14 @@ app.post('/api/vacations', function api_create(req, res){
 
 app.put('/api/vacations/:id', function (req, res){
   //country id by name and edit it
-      var countryName = req.params.country;
+
+      var editCountry = req.params.country;
+      var editDate = req.params.date;
+      var editImage = req.params.image;
       var edit = req.body;
 
-      db.Vacation.findOneAndUpdate({country: countryName}, edit, function(err, foundVacation){
-        foundVacation.save(function(err, foundVacation){
+      db.Vacation.findOneAndUpdate({country: editCountry, date: editDate, image: editImage}, edit, function(err, foundVacation){
+        Vacation.save(function(err, foundVacation){
           if(err){
             return console.log("save error:" + err);
           }
