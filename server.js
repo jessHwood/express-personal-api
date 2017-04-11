@@ -12,7 +12,7 @@ app.use(bodyParser.json());
  * DATABASE *
  ************/
 
-// var db = require('./models');
+var db = require('./models');
 
 /**********
  * ROUTES *
@@ -56,7 +56,6 @@ app.get('/api/profile', function api_index(req, res) {
     name: "Jess Wood", 
     message: "Welcome to my personal api! Here's what you need to know!",
     github_link: "https://github.com/jessHwood", 
-    github_profile_image: "https://github.com/settings/profile",
     base_url: "https://warm-castle-32625.herokuapp.com/", 
     current_city: "Sweet Ridge",
     pets: [
