@@ -107,14 +107,14 @@ app.put('/api/vacations/:id', function (req, res){
       vacation.image = req.body.image;
 
       console.log(vacation.country);
-        });
-        console.log(vacation);
-        vacation.save(function(err, vacation){
+
+        vacation.save(function(err,vacation){
 
           if(err){
             return console.log("save error:" + err);
           }
           res.json(vacation);
+        });
        
       });
 });
