@@ -46,7 +46,8 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api", description: "Describes all available endpoints"},
       {method: "GET", path: "/api/profile", description: "Data about me"}, 
       {method: "GET", path: "/api/vacations", description: "Show some of my vacations"}, 
-      {method: "GET", path: "/api/vacations/:id", description: "Show a vacation by Id"}
+      {method: "GET", path: "/api/vacations/:id", description: "Show a vacation by Id"},
+      {method: "POST", path: "/api/vacations/", description: "Add a new vacation"}
     ]
   });
 });
@@ -65,7 +66,7 @@ app.get('/api/profile', function api_index(req, res) {
   });
 });
 //get all vacations
-app.get('/api/vacations', function (req, res){
+app.get('/api/vacations', function api_index(req, res){
   db.Vacation.find(function(err, vacations){
     if(err) {return console.log("index error:" + err); }
     res.json(vacations);
@@ -73,13 +74,13 @@ app.get('/api/vacations', function (req, res){
 });
 
 //get one vacation
-app.get('/api/vacations/:id', function (req, res) {
+app.get('/api/vacations/:id', function api_show(req, res) {
   db.Vacation.findOne({_id: req.params.id }, function(err, data) {
     res.json(data);
   });
 });
 
-app.post('/api/vacations', function(req, res){
+app.post('/api/vacations', function api_create(req, res){
   var newVacation = new db.Vacation ({
     country: req.body.country,
     date: req.body.date,
@@ -94,6 +95,32 @@ app.post('/api/vacations', function(req, res){
       res.json(vacation);
   });
 });
+
+app.put('/api/vacations/:id', function (req, res){
+  //country id by name and edit it
+      var countryName = req.params.country;
+      var edit = req.body;
+
+      db.Vacation.findOneAndUpdate({country: countryName}, edit, function(err, foundVacation){
+        foundVacation.save(function(err, foundVacation){
+          if(err){
+            return console.log("save error:" + err);
+          }
+          res.json(foundVacation);
+        });
+      });
+});
+
+app.delete('/api/vacations/:id', function api_delete (req,res){
+      var vacationId = req.params.id;
+
+      db.Vacation.findOneAndRemove({_id: vacationId}, function(err, deletedVacation){
+          console.log(deletedVacation);
+          res.json(deletedVacation);
+      });
+});
+
+
 /**********
  * SERVER *
  **********/
