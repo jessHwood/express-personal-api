@@ -64,7 +64,7 @@ app.get('/api/profile', function api_index(req, res) {
     ]
   });
 });
-
+//get all vacations
 app.get('/api/vacations', function (req, res){
   db.Vacation.find(function(err, vacations){
     if(err) {return console.log("index error:" + err); }
@@ -72,6 +72,12 @@ app.get('/api/vacations', function (req, res){
   });
 });
 
+//get one vacation
+app.get('/api/vacations/:id', function (req, res) {
+  db.Vacation.findOne({_id: req.params.id }, function(err, data) {
+    res.json(data);
+  });
+});
 /**********
  * SERVER *
  **********/
