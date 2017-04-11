@@ -100,19 +100,22 @@ app.post('/api/vacations', function api_create(req, res){
 
 app.put('/api/vacations/:id', function (req, res){
   //country id by name and edit it
+  db.Vacation.findOne({_id: req.params.id}, function(err, vacation){
 
-      var editCountry = req.params.country;
-      var editDate = req.params.date;
-      var editImage = req.params.image;
-      var edit = req.body;
+      vacation.country = req.body.country;
+      vacation.date = req.body.date;
+      vacation.image = req.body.image;
 
-      db.Vacation.findOneAndUpdate({country: editCountry, date: editDate, image: editImage}, edit, function(err, foundVacation){
-        Vacation.save(function(err, foundVacation){
+      console.log(vacation.country);
+        });
+        console.log(vacation);
+        vacation.save(function(err, vacation){
+
           if(err){
             return console.log("save error:" + err);
           }
-          res.json(foundVacation);
-        });
+          res.json(vacation);
+       
       });
 });
 
